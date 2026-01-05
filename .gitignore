@@ -1,0 +1,8 @@
+# MacOS
+.DS_Store
+
+# Rust builds
+/target
+
+# Image outputs
+/output
