@@ -9,6 +9,9 @@ const MARGIN: u32 = 10;
 const WIDTH: u32 = COLS * SIZE + 2 * MARGIN;
 const HEIGHT: u32 = ROWS * SIZE + 2 * MARGIN;
 const LINE_WIDTH: f32 = 0.06;
+const COLORS: [Rgb<u8>; 10] = [
+    PLUM, TEAL, VIOLET, CORAL, GOLD, FORESTGREEN, SLATEBLUE, SALMON, TURQUOISE, AQUAMARINE
+];
 
 fn main() {
     nannou::app(model)
@@ -23,6 +26,7 @@ struct Model {
     disp_adj: f32,
     rot_adj: f32,
     gravel: Vec<Stone>,
+    background_color: Rgb<u8>,
 }
 
 struct Stone {
@@ -76,6 +80,8 @@ fn model(app: &App) -> Model {
         disp_adj,
         rot_adj,
         gravel,
+        background_color: COLORS
+                [random_range(0, COLORS.len() as i32) as usize],
     }
 }
 
@@ -90,6 +96,11 @@ fn key_pressed(app: &App, model: &mut Model, key: Key) {
             app.main_window().capture_frame(file_path.clone());
             println!("saved frame");
             println!("{:?}", file_path.display());
+        }
+        Key::C => {
+            model.background_color = COLORS
+                [random_range(0, COLORS.len() as i32) as usize];
+            println!("changed color to {:?}", model.background_color);
         }
         Key::R => model.random_seed = random_range(0, 1000000),
         Key::Up => {
@@ -152,6 +163,6 @@ fn view(app: &App, model: &Model, frame: Frame) {
             .x_y(stone.x_offset, stone.y_offset)
             .rotate(stone.rotation);
     }
-    draw.background().color(PLUM);
+    draw.background().color(model.background_color);
     draw.to_frame(app, &frame).unwrap();
 }

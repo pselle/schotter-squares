@@ -14,7 +14,10 @@ When you run the program, a GUI will open. There are a few key commands availabl
 
 * S - Saves an image to an output/ folder
 * R - Refreshes the image with a new random seed
+* C - Change the background color
 * Down - Adjust the squares down
 * Up - Adjust the squares up
 * Right - Adjust the squares rotation right
 * Left - Adjust the squares rotation left
+
+To exit the program, close the GUI window.
